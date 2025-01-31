@@ -6,11 +6,28 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs }: {
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs: {
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+      };
+      in
 
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [
+          nixpkgs-fmt
+	  git
+	];
+      };
+
+      containers = {
+        jellyfin = import ./modules/containers/jellyfin.nix;
+      };
+
+      services = {
+        jellyfin = import ./modules/services/jellyfin.nix;
+      };
 
   };
 }
