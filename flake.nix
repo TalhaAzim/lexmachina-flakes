@@ -28,6 +28,7 @@
       services = {
         jellyfin = import ./modules/services/jellyfin.nix;
       };
+    );
 
   };
 }
