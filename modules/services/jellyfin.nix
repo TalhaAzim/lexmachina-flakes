@@ -15,7 +15,7 @@ let
       chown -R jellyfin:jellyfin /config /cache /media
     '';
 
-    copytoRoot = pkgs.buildEnv {
+    copyToRoot = pkgs.buildEnv {
       name = "jellyfin-env";
       paths = [
         pkgs.jellyfin
