@@ -15,7 +15,7 @@ let
       chown -R jellyfin:jellyfin /config /cache /media
     '';
 
-    contents = pkgs.buildEnv {
+    copytoRoot = pkgs.buildEnv {
       name = "jellyfin-env";
       paths = [
         pkgs.jellyfin
@@ -44,10 +44,12 @@ let
 in 
 {
   # Create jellyfin user
+  users.groups.jellyfin = {};
   users.users.jellyfin = {
     isSystemUser = true;
     home = "/var/lib/jellyfin";
-    extraGroups = [ "podman" "jellyfin"];
+    extraGroups = [ "podman"];
+    group = "jellyfin";
   };
 
   # Ensure folders exit
