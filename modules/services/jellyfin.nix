@@ -56,9 +56,9 @@ in
 
   # Ensure folders exit
   systemd.tmpfiles.rules = [
-    "d /srv/jellyfin/var/lib/jellyfin/config 0771 jellyfin jellyfin"
-    "d /srv/jellyfin/var/lib/jellyfin/cache 0771 jellyfin jellyfin"
-    "d /srv/media 0771 jellyfin jellyfin"
+    "d /srv/jellyfin/var/lib/jellyfin/config 0775 jellyfin jellyfin"
+    "d /srv/jellyfin/var/lib/jellyfin/cache 0775 jellyfin jellyfin"
+    "d /srv/media 0775 jellyfin jellyfin"
   ];
 
   # Open the firewall ports
