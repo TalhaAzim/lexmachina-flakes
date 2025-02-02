@@ -58,7 +58,7 @@ in
   systemd.tmpfiles.rules = [
     "d /srv/jellyfin/var/lib/jellyfin/config 0750 jellyfin jellyfin"
     "d /srv/jellyfin/var/lib/jellyfin/cache 0750 jellyfin jellyfin"
-    "d /srv/media/0750 jellyfin jellyfin"
+    "d /srv/media 0750 jellyfin jellyfin"
   ];
 
   # Open the firewall ports
@@ -67,7 +67,7 @@ in
   };
 
   # Define the container
-  virtualisation.oci-containers.containers.jellyfin = {
+  virtualisation.oci-containers.containers.jellyfin-container = {
     image = "${imageName}:${imageTag}";  # Tag matches our custom image
     imageFile = jellyfinImage.outPath;  # Use our custom image
 
