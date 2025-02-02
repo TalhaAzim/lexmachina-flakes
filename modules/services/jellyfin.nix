@@ -67,7 +67,7 @@ in
   };
 
   # Define the container
-  virtualisation.oci-containers.containers.jellyfin-container = {
+  virtualisation.oci-containers.containers.jellyfin-custom = {
     image = "${imageName}:${imageTag}";  # Tag matches our custom image
     imageFile = jellyfinImage.outPath;  # Use our custom image
 
