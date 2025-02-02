@@ -59,7 +59,6 @@ in
     "d /srv/jellyfin/var/lib/jellyfin/config 0750 jellyfin jellyfin"
     "d /srv/jellyfin/var/lib/jellyfin/cache 0750 jellyfin jellyfin"
     "d /srv/media 0750 jellyfin jellyfin"
-    "d /srv/media/log 0750 jellyfin jellyfin"
   ];
 
   # Open the firewall ports
@@ -81,9 +80,9 @@ in
     ];
 
     volumes = [
-      "/srv/jellyfin/var/lib/jellyfin/config:/config"
-      "/srv/jellyfin/var/lib/jellyfin/cache:/cache"
-      "/srv/media:/media"
+      "/srv/jellyfin/var/lib/jellyfin/config:/config:rw"
+      "/srv/jellyfin/var/lib/jellyfin/cache:/cache:rw"
+      "/srv/media:/media:Z"
     ];
 
     environment = {
