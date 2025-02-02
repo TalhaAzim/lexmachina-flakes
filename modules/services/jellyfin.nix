@@ -80,9 +80,9 @@ in
     ];
 
     volumes = [
-      "/srv/jellyfin/var/lib/jellyfin/config:/config:Z"
-      "/srv/jellyfin/var/lib/jellyfin/cache:/cache:Z"
-      "/srv/media:/media:Z"
+      "/srv/jellyfin/config:/config:rw"
+      "/srv/jellyfin/cache:/cache:rw"
+      "/srv/media:/media:rw"
     ];
 
     environment = {
