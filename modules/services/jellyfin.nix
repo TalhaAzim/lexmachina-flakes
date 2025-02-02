@@ -21,8 +21,8 @@ let
       name = "jellyfin-env";
       paths = [
         pkgs.jellyfin
-	pkgs.jellyfin-web
-	pkgs.jellyfin-ffmpeg
+	    pkgs.jellyfin-web
+	    pkgs.jellyfin-ffmpeg
       ];
     };
 
@@ -92,7 +92,6 @@ in
     };
 
     extraOptions = [
-      "--network=host"  # Optional: Use host network for better performance
     ];
   };
 }
