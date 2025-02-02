@@ -40,7 +40,7 @@ let
         "/media" = {};
       };
       WorkingDir = "/config";
-      User = "jellyfin";
+      User = "jellyfin:jellyfin";
     };
   };
 in 
@@ -50,7 +50,7 @@ in
   users.users.jellyfin = {
     isSystemUser = true;
     home = "/var/lib/jellyfin";
-    extraGroups = [ "podman"];
+    extraGroups = [ "podman" "jellyfin"];
     group = "jellyfin";
   };
 
@@ -80,8 +80,8 @@ in
     ];
 
     volumes = [
-      "/srv/jellyfin/var/lib/jellyfin/config:/config:rw"
-      "/srv/jellyfin/var/lib/jellyfin/cache:/cache:rw"
+      "/srv/jellyfin/var/lib/jellyfin/config:/config:Z"
+      "/srv/jellyfin/var/lib/jellyfin/cache:/cache:Z"
       "/srv/media:/media:Z"
     ];
 
