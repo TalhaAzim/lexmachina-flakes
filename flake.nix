@@ -13,23 +13,10 @@
       flake-utils,
       ...
     }@inputs:
-    {
-
-    eachSystem = flake-utils.lib.eachDefaultSystem (
-      system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {};
       in
       {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            nixfmt-rfc-style
-            git
-          ];
-        };
-
-      }
-    );
 
     nixosModules.jellyfin = import ./modules/services/jellyfin.nix;
     };
