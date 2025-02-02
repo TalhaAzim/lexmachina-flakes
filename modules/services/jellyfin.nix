@@ -2,9 +2,11 @@
 { config, pkgs, lib, ... }:
 let
   dockerTools = pkgs.dockerTools;
+  imageName = "jellyfin-custom";
+  imageTag = "latest";
   jellyfinImage = dockerTools.buildImage {
-    name = "jellyfin-custom";
-    tag = "latest";
+    name = imageName;
+    tag = imageTag;
 
     runAsRoot = ''
       #!${pkgs.stdenv.shell}
@@ -66,7 +68,7 @@ in
 
   # Define the container
   virtualisation.oci-containers.containers.jellyfin = {
-    image = "${jellyfinImage.name}:${jellyfinImage.tag}";  # Tag matches our custom image
+    image = "${imageName}:${imageTag}";  # Tag matches our custom image
     imageFile = jellyfinImage.outPath;  # Use our custom image
 
     user = "jellyfin:jellyfin";
