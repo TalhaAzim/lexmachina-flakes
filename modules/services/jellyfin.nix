@@ -1,5 +1,47 @@
 # modules/containers/jellyfin.nix
 { pkgs, ... }@inputs:
+let
+  dockerTools = pkgs.dockerTools;
+  jellyfinImage = dockerTools.buildImage {
+    name = "jellyfin-custom";
+    tag = "latest";
+
+    runAsRoot = ''
+      #!${pkgs.stdenv.shell}
+      ${dockerTools.shadowSetup}
+      groupadd -r jellyfin
+      useradd -r -g jellyfin -d /config -M jellyfin
+      mkdir -p /config /cache /media
+      chown -R jellyfin:jellyfin /config /cache /media
+    '';
+
+    contents = pkgs.buildEnv {
+      name = "jellyfin-env";
+      paths = [
+        pkgs.jellyfin
+	pkgs.jellyfin-web
+	pkgs.jellyfin-ffmpeg
+      ];
+    };
+
+    config = {
+      Cmd = [
+        "${pkgs.jellyfin}/bin/jellyfin"
+      ];
+      ExposedPorts = {
+        "8096/tcp" = {};
+        "8920/tcp" = {};
+      };
+      Volumes = {
+        "/config" = {};
+        "/cache" = {};
+        "/media" = {};
+      };
+      WorkingDir = "/config";
+      User = "jellyfin";
+    };
+  };
+in 
 {
   # Create jellyfin user
   users.users.jellyfin = {
@@ -22,8 +64,8 @@
 
   # Define the container
   virtualisation.oci-containers.containers.jellyfin = {
-    image = "jellyfin:latest";  # Tag matches our custom image
-    imageFile = inputs.lm.containers.jellyfin;  # Use our custom image
+    image = "${jellyfinImage.name}:${jellyfinImage.tag}";  # Tag matches our custom image
+    imageFile = jellyfinImage.outPath;  # Use our custom image
 
     user = "jellyfin:jellyfin";
 

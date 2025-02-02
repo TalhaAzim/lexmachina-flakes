@@ -13,8 +13,9 @@
       flake-utils,
       ...
     }@inputs:
+    {
 
-    flake-utils.lib.eachDefaultSystem (
+    eachSystem = flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -27,14 +28,10 @@
           ];
         };
 
-        packages = {
-          jellyfin= import ./modules/containers/jellyfin.nix;
-        };
-
-        services = {
-          jellyfin= import ./modules/services/jellyfin.nix;
-        };
       }
     );
+
+    nixosModules.jellyfin = import ./modules/services/jellyfin.nix;
+    };
 
 }
