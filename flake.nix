@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "Lex machina";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -12,10 +12,7 @@
       nixpkgs,
       flake-utils,
       ...
-    }@inputs:
-      let
-        pkgs = import nixpkgs {};
-      in
+    }:
       {
 
     nixosModules.jellyfin = import ./modules/services/jellyfin.nix;

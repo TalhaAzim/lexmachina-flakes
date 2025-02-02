@@ -1,5 +1,5 @@
 # modules/containers/jellyfin.nix
-{ pkgs, ... }@inputs:
+{ config, pkgs, lib, ... }:
 let
   dockerTools = pkgs.dockerTools;
   jellyfinImage = dockerTools.buildImage {
